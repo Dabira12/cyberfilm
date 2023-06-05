@@ -1,0 +1,20 @@
+import { Configuration, OpenAIApi } from "openai";
+
+const config =new Configuration({organization:'org-3rMyVoIwEQt6SzTYyU7CTieT', apiKey:"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"});
+const openai= new OpenAIApi(config);
+import { useState } from "react";
+delete config.baseOptions.headers['User-Agent'];
+
+export const runPrompt = async({setOutput,setLoading,genre,length,characters})=>{
+    setOutput(''); //gets rid of any existing text in text srea from previous run
+    setLoading(true); //starts loading spinner
+    const prompt = `write me a ${length} word ${genre} story with  ${characters} characters`;
+   
+    const response = await openai.createChatCompletion({
+        model:'gpt-3.5-turbo',
+       messages:[{'role':'user','content':prompt}]
+    }).then(response=>{setOutput(response.data.choices[0].message.content)}).catch(error=>(console.log(error)));
+    setLoading(false);
+
+    ;
+}
