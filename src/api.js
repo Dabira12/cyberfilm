@@ -1,6 +1,8 @@
 import { Configuration, OpenAIApi } from "openai";
 
-const config =new Configuration({organization:'org-3rMyVoIwEQt6SzTYyU7CTieT', apiKey:"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"});
+const api= import.meta.env.VITE_API
+const org = import.meta.env.VITE_ORG
+const config =new Configuration({organization:org, apiKey:api});
 const openai= new OpenAIApi(config);
 import { useState } from "react";
 delete config.baseOptions.headers['User-Agent'];
