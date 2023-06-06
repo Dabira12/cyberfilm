@@ -5,7 +5,7 @@
   "type": "module",
   "engines":{"node":"16.20.0","npm":"7.4.2"},
   "scripts": {
-    "start": "npm run dev",
+    "start": "vite",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
