@@ -5,10 +5,12 @@
   "type": "module",
   "engines":{"node":"16.20.0","npm":"7.4.2"},
   "scripts": {
+    "start": "node app.js",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    
   },
   "dependencies": {
     "@emotion/react": "^11.11.0",
