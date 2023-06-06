@@ -60,7 +60,6 @@ function App() {
             backgroundColor: "#432263",
             height: "100%",
             width: "60%",
-            textAlign: "center",
             paddingLeft: "10px",
           }}
           onClick={() =>
