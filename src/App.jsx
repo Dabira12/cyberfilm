@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./index.css";
 
 import Genre from "./components/Genre";
@@ -12,6 +12,8 @@ import { TextField } from "@mui/material";
 import { Grid } from "@mui/material";
 import logo from "./assets/logo.jpeg";
 
+import Typewriter from 'typewriter-effect/dist/core';
+
 import PropagateLoader from "react-spinners/PropagateLoader";
 
 function App() {
@@ -20,6 +22,60 @@ function App() {
   const [characters, setCharacters] = useState(1);
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
+
+
+  var i = 0;
+  var txt = output; /* The text */
+
+  var speed = 20; /* The speed/duration of the effect in milliseconds */
+
+  function typeWriter() {
+    document.getElementById("TextField").scrollTop = document.getElementById("TextField").scrollHeight 
+    if (i < txt.length) {
+      document.getElementById("TextField").innerHTML += txt.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+
+  useEffect(() => {
+   
+    
+    document.getElementById("TextField").innerHTML = ""
+    if (output != "") {
+      let story = {
+        title: "",
+        genre: genre,
+        length: length,
+        character: characters,
+        output: output,
+      };
+
+     
+
+      // var typewriter = new Typewriter(text, {
+      //   loop: true,
+      //   delay: 75,
+      // });
+     
+     
+
+      
+
+      typeWriter();
+
+      let story_serialized = JSON.stringify(story);
+
+      // localStorage.setItem("test", story_serialized);
+
+      // let test = localStorage.getItem("test");
+    }
+    return () => {
+      // Cleanup code (optional) goes here
+      // This function will be called before the next side effect is executed
+    };
+  }, [output]); // The empty array as the second argument means the effect will only run once (on mount) and not on subsequent renders
 
   return (
     <div>
@@ -63,7 +119,14 @@ function App() {
             paddingLeft: "10px",
           }}
           onClick={() =>
-            runPrompt({ output, setOutput, setLoading, length, genre })
+            runPrompt({
+              output,
+              setOutput,
+              setLoading,
+              length,
+              genre,
+              characters,
+            })
           }
         >
           Generate Story
@@ -78,13 +141,17 @@ function App() {
         ></PropagateLoader>
       </div>
 
-      <TextField
+      <TextField className="TextField" id="TextField"
         sx={{ width: "85%", paddingLeft: "10%" }}
         multiline={true}
-        value={output}
+        // value={output}
         minRows="10"
+        
         InputProps={{ readOnly: true }}
-      ></TextField>
+      >
+      
+      
+      </TextField>
     </div>
   );
 }
